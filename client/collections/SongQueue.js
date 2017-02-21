@@ -9,10 +9,15 @@ var SongQueue = Backbone.Collection.extend({
         this.playFirst();
       }
     });
+    this.on('ended', () => {
+      this.models.shift();
+      this.length--;
+      if (this.length > 0) {
+        this.playFirst();
+      }
+    });
   },
   playFirst: function() {
-    console.log(this['model']);
-    this['models']['0'].__proto__.play();
+    this.at(0).play();
   }
-
 });
