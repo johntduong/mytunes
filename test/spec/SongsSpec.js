@@ -29,6 +29,12 @@ describe('Songs', function() {
       xhr.restore();
     });
 
+    it('should invoke fetch to GET song data from Parse when initialized', function() {
+      removeSpy = sinon.spy(Songs.prototype, 'fetch');
+      songs = new Songs();
+      expect(removeSpy).to.have.been.called;
+    });
+
     it('should GET song data from Parse when initialized', function() {
       songs = new Songs();
       expect(requests[0].method).to.equal('GET');
@@ -42,6 +48,5 @@ describe('Songs', function() {
       expect(songs.at(0).get('title')).to.equal('Never Gonna Mock You Up');
       expect(songs.at(1).get('artist')).to.equal('BittyBacon');
     });
-
   });
 });
